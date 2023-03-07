@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class Quiz : MonoBehaviour
 {
@@ -48,6 +49,31 @@ public class Quiz : MonoBehaviour
             buttonImage.sprite = correcttAnswerSprite;
             questionText.text = "Sorry, the correct answer was;\n" + question.GetCorrectAnswer();
         }
+        SetButtonState(false);
     }
 
+    void GetNextQuestion()
+    {
+        SetButtonState(true);
+        SetDefaultButtonSprites();
+        DisplayQuestion();
+    }
+
+    void SetButtonState(bool state)
+    {
+        for(int i=0; i< answerButtons.Length; i++)
+        {
+            Button button = answerButtons[i].GetComponent<Button>();
+            button.interactable = state;
+        }
+    }
+
+    void SetDefaultButtonSprites()
+    {
+        for(int i=0; i<answerButtons.Length; i++)
+        {
+            Image image = answerButtons[i].GetComponentInChildren<Image>();
+            image.sprite = defaultAnswerSprite;
+        }
+    }
 }
